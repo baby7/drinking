@@ -71,6 +71,18 @@ class RoundProgress(QWidget):
         self.add_label.move(15, 180)
         self.add_label.clicked.connect(self.click_add)
 
+        self.add_label = QPushButton(self)
+        self.add_label.setText("×")
+        self.add_label.setMaximumWidth(25)
+        self.add_label.setMaximumHeight(25)
+        self.add_label.setFont(font)
+        self.add_label.setStyleSheet('QPushButton{background:rgba(0,0,0,0);color: #FFFFFF;}')
+        op = QtWidgets.QGraphicsOpacityEffect()
+        self.add_label.setGraphicsEffect(op)
+        self.add_label.setAutoFillBackground(True)
+        self.add_label.move(180, 15)
+        self.add_label.clicked.connect(QCoreApplication.instance().quit)
+
         label_none = QLabel("", self)
         label_none.move(500, 500)
 
