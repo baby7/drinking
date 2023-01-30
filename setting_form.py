@@ -158,5 +158,5 @@ class Ui_Form(object):
         self.label_9.setText(_translate("Form", "界面显示"))
         self.label_10.setText(_translate("Form", "(为0时不提醒)"))
         self.label_message.setText(_translate("Form", "作者：七仔\n"
-"Windows喝水记录工具 版本:v2.0.0\n"
+"Windows喝水记录工具 版本:v2.0\n"
 "喜欢的话可以右上角扫码赞助，或者在github打个星(*^▽^*)"))
