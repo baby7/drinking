@@ -8,7 +8,6 @@ import config
 import record_list
 from winotify import Notification
 import icon.icon as icon
-import icon.collection as collection
 import darkdetect
 from PyQt5.QtCore import Qt
 from qframelesswindow import AcrylicWindow
@@ -19,15 +18,13 @@ from record import RecordWindow
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
-from PyQt5.QtWidgets import (QApplication, QDialog, QMessageBox, QPushButton,
-                             QLabel, QCheckBox, QComboBox, QLineEdit, QSpinBox,
-                             QMenu, QAction, QGridLayout, QHBoxLayout, QVBoxLayout,
-                             QTextEdit, QGroupBox, QStyle, QSystemTrayIcon)
-import threading
+from PyQt5.QtWidgets import (QApplication, QMenu, QAction, QSystemTrayIcon)
 import util.thread_util
 import time_thread
 
-
+"""
+pyinstaller -F -w -i D:/project/python/drinking/icon/favicon.ico -n Windows喝水记录工具v2.0 main.py
+"""
 class Window(AcrylicWindow, Ui_Form):
 
     m_flag = None
@@ -61,6 +58,8 @@ class Window(AcrylicWindow, Ui_Form):
 
     time_thread = None
     time_add_count = 0
+
+    active_time_list = None
 
     def __init__(self, parent=None):
         super(Window, self).__init__(parent=parent)
@@ -135,20 +134,33 @@ class Window(AcrylicWindow, Ui_Form):
 
     # 使用结束触发
     def time_trigger_update(self, end):
+        today_str = str(datetime.date.today().strftime("%Y-%m-%d"))
+        now_str = str(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
+        now = time.strptime(now_str, "%Y-%m-%d %H:%M:%S")
         self.time_add_count += 1
-        print(self.time_add_count)
         if self.remind_interval == 0:
             return
-
-        print(str(self.time_add_count) + "/" + str(self.remind_interval))
         if self.time_add_count == self.remind_interval or (self.time_add_count % self.remind_interval) == 0:
-            self.send_message(self.time_add_count)
+            for active_time in self.active_time_list:
+                if not active_time['active']:
+                    continue
+                start_time_str = today_str + " " + active_time['start_time'] + ":00"
+                start_time = time.strptime(start_time_str, "%Y-%m-%d %H:%M:%S")
+                end_time_str = today_str + " " + active_time['end_time'] + ":00"
+                end_time = time.strptime(end_time_str, "%Y-%m-%d %H:%M:%S")
+                print(start_time_str)
+                print(end_time_str)
+                print(now_str)
+                if start_time <= now <= end_time:
+                    self.send_message(self.time_add_count)
+                    return
 
     def init_config(self):
         drink_config = config.get_drink_config()
         self.remind_interval = int(drink_config['remind_interval'])
         self.drinking_count = int(drink_config['drinking_count'])
         self.view_message = drink_config['view_message']
+        self.active_time_list = drink_config['active_time_list']
         self.view_top = drink_config['view_top']
         if self.view_top == "top":
             self.setWindowFlag(Qt.WindowStaysOnTopHint, True)       # 窗口置顶
