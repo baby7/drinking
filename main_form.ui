@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Form</class>
+ <widget class="QWidget" name="Form">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>188</width>
+    <height>181</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <widget class="QLabel" name="center_label">
+   <property name="geometry">
+    <rect>
+     <x>55</x>
+     <y>50</y>
+     <width>81</width>
+     <height>81</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>黑体</family>
+     <pointsize>45</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>🥛</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="add_label">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>140</y>
+     <width>31</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>黑体</family>
+     <pointsize>20</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background:rgba(0,0,0,0);color: #FFFFFF;</string>
+   </property>
+   <property name="text">
+    <string>✚</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButton">
+   <property name="geometry">
+    <rect>
+     <x>150</x>
+     <y>140</y>
+     <width>31</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>黑体</family>
+     <pointsize>20</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background:rgba(0,0,0,0);color: #FFFFFF;</string>
+   </property>
+   <property name="text">
+    <string>〇</string>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>add_label</sender>
+   <signal>clicked()</signal>
+   <receiver>Form</receiver>
+   <slot>push_button_add_click()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>31</x>
+     <y>156</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>43</x>
+     <y>25</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton</sender>
+   <signal>clicked()</signal>
+   <receiver>Form</receiver>
+   <slot>push_button_clear_click()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>167</x>
+     <y>149</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>159</x>
+     <y>56</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>push_button_add_click()</slot>
+  <slot>push_button_clear_click()</slot>
+ </slots>
+</ui>
